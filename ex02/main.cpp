@@ -1,5 +1,9 @@
 #include <iostream>
-#include <Array.hpp>
+#include <cstdlib>// pour srand, rand
+#include <ctime>// pour time
+
+#include "Array.hpp"
+#include "Array.tpp"
 
 #define MAX_VAL 750
 int main(int, char**)
