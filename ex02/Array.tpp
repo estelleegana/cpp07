@@ -1,35 +1,63 @@
 #pragma once
 #include "Array.hpp"
 
+//constructeur sans parametre
 template<typename T>
 Array<T>::Array() : _size(0), _data(NULL)
 {
-	std::cout << bGREEN << "Constructor default Array created" << RESET << std::endl;
+	std::cout << bGREEN << "Array - Constructor default " << RESET << std::endl;
 }
 
+
+//constructeur(unsigned int n)
 template<typename T>
 Array<T>::Array(const int &n) : _size(n), _data(new T[n])
 {
-	std::cout << bGREEN << "Constructor(int &n) Array created" << RESET << " size : " << n << std::endl;
+	std::cout << bGREEN << "Array - Constructor " << RESET << " size : " << n << std::endl;
+}
+
+//constructeur de recopie et operateur d'affiliation=
+template<typename T>
+Array<T>::Array(const Array &copy) : _size(copy._size), _data(new T[copy._size])
+{
+	for (unsigned int i = 0; i < _size; i++)
+		_data[i] = copy._data[i];
+	std::cout << bGREEN << "Array - Constructor copy " << RESET << " size : " << _size << std::endl;
 }
 
 template<typename T>
-Array<T>::Array(const Array &copy)
+Array<T> &Array<T>::operator=(const Array &autre)
 {
-	_size = copy._size;
-	_data =  new T[copy._size];
+	delete[] _data;
+
+	_size = autre._size;
+	_data = new T[autre._size];
 	for (unsigned int i = 0; i < _size; i++)
-		_data[i] = copy._data[i];
-	std::cout << bGREEN << "Constructor de recopie Array created" << RESET << " size : " << _size << std::endl;
+		_data[i] = autre._data[i];
+	return (*this);
 }
 
+//destructeur
 template<typename T>
 Array<T>::~Array()
 {
-	delete _data;
-	std::cout << bRED << "Destructor" << RESET << std::endl;
+	delete[] _data;
+	std::cout << bRED << "Array - Destructor" << RESET << std::endl;
 }
 
+//fonction membre size() : renvoie le nombre d'elem dans le _data[]
+template<typename T>
+unsigned int Array<T>::size()
+{
+	return _size;
+}
+
+
+
+
+
+
+//operateur d'affiliation []
 template<typename T>
 T &Array<T>::operator[](unsigned int index)
 {
@@ -38,3 +66,4 @@ T &Array<T>::operator[](unsigned int index)
 	}
 	return _data[index];
 }
+
